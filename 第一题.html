@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>第一个案例</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        <div id="app">
+            <div class="box">
+                <div class="ad">
+                    <span>商品名称:
+                    <input type="text" v-model="name" v-model:value="goname" /></span>
+                    <span>商品价格:
+                    <input type="text" v-model="money" v-model:value="gomoney" /></span>
+                    <button @click="add"> 添加 </button>
+                </div>
+                <div class="">
+                    <table>
+                        <thead>
+                            <th>商品序号</th>
+                            <th>商品名称</th>
+                            <th>商品价格</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item ,index) in lists" v-bind:key='item.id'>
+                                <td>{{item.id}} </td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.money}}</td>
+                                <td>
+                                    <button @click="del(index)">删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/vue.js"></script>
+    <style>
+        .box {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+        }      
+        .ad {
+            border-bottom: 1px solid black;
+            padding-top: 15px;
+
+        }       
+        .shopp {
+            padding-left: 10px;
+            padding-top: 10px;
+
+        }    
+        th,td {
+          border: 1px solid brown;
+          padding: 0;
+
+        }
+        table {
+            border-collapse: collapse;
+            width: 500px;
+            margin: 0 auto;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+ <script>
+        new Vue({
+            el:'#app',
+            data:{
+                goname:'',
+                gomoney:'',
+                lists:[
+                    {id:1,name:'test',money:34},
+                    {id:2,name:'zhang',money:20},
+                    {id:3,name:'wmx',money:10}
+                ],
+                nextTodoId:4
+            },
+            methods: {
+                add(){
+                    this.lists.push({
+                        id:this.nextTodoId++,
+                        name:this.goname,
+                        money:this.gomoney
+                    })
+                    this.goname='',
+                    this.gomoney=''
+                },
+                del(index){
+                    this.lists.splice(index,1)
+                }
+            },
+        })
+    </script>
+</html>
